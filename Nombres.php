@@ -50,3 +50,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuarioGenerado = generarUsuario($nombre, $institucion, $anio);
 }
 ?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Usuario</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Ingresa el nombre completo:</label><br>
+        <input type="text" name="nombre" required><br><br>
+        
+        <label>Ingresa el nombre de la institución educativa:</label><br>
+        <input type="text" name="institucion" required><br><br>
+        
+        <label>Ingresa el año de ingreso:</label><br>
+        <input type="text" name="anio" placeholder="2024" maxlength="4" required><br><br>
+        
+        <button type="submit">Generar Usuario</button>
+    </form>
+
+    <?php if ($usuarioGenerado !== ""): ?>
+        <p><strong>Nombre de usuario generado:</strong> <?php echo htmlspecialchars($usuarioGenerado); ?></p>
+    <?php endif; ?>
+</body>
+</html>
