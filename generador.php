@@ -34,9 +34,34 @@ function generarClave($nombre, $fechaNacimiento) {
     return $iniciales . $anio . $mesDia;
 }
 
-$nombreEstudiante = readline("Ingresa el nombre completo del estudiante: ");
-$fechaNacimiento = readline("Ingresa la fecha de nacimiento (AAAA-MM-DD): ");
+$claveGenerada = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombreEstudiante = $_POST["nombre"] ?? "";
+    $fechaNacimiento = $_POST["fecha"] ?? "";
+    $claveGenerada = generarClave($nombreEstudiante, $fechaNacimiento);
+}
+?>
 
-$claveGenerada = generarClave($nombreEstudiante, $fechaNacimiento);
-echo "Clave generada: " . $claveGenerada . "\n";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Clave</title>
+</head>
+<body>
+    <form method="POST">
+        <label>Ingresa el nombre completo del estudiante:</label><br>
+        <input type="text" name="nombre" required><br><br>
+        
+        <label>Ingresa la fecha de nacimiento (AAAA-MM-DD):</label><br>
+        <input type="text" name="fecha" placeholder="2005-08-15" required><br><br>
+        
+        <button type="submit">Generar Clave</button>
+    </form>
+
+    <?php if ($claveGenerada !== ""): ?>
+        <p><strong>Clave generada:</strong> <?php echo $claveGenerada; ?></p>
+    <?php endif; ?>
+</body>
+</html>
 ?>
