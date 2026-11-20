@@ -15,4 +15,38 @@ function limpiarNombre($nombre) {
     return $nombreSinEspacios;
 }
 
+function obtenerInstitucion($institucion) {
+    $instLimpia = trim($institucion);
+    $instMinusculas = convertirMinusculas($instLimpia);
+    
+    if (strlen($instMinusculas) >= 2) {
+        return substr($instMinusculas, 0, 2);
+    }
+    return $instMinusculas;
+}
+
+function obtenerAnio($anio) {
+    $anioLimpio = trim($anio);
+    if (strlen($anioLimpio) == 4) {
+        return substr($anioLimpio, 2, 2);
+    }
+    return $anioLimpio;
+}
+
+function generarUsuario($nombre, $institucion, $anioIngreso) {
+    $parteNombre = limpiarNombre($nombre);
+    $parteInstitucion = obtenerInstitucion($institucion);
+    $parteAnio = obtenerAnio($anioIngreso);
+    
+    return $parteNombre . $parteInstitucion . $parteAnio;
+}
+
+$usuarioGenerado = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST["nombre"] ?? "";
+    $institucion = $_POST["institucion"] ?? "";
+    $anio = $_POST["anio"] ?? "";
+    
+    $usuarioGenerado = generarUsuario($nombre, $institucion, $anio);
+}
 ?>
